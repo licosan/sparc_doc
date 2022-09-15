@@ -59,6 +59,24 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="routing.html">Understanding the routing</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#url-matching">URL matching</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#roles-matching">Roles matching</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#controller-selection">Controller selection</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#method-selection">Method selection</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#method-parameters">Method parameters</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#special-routing-cases">Special routing cases:</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#the-default-route">The default route</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#external-urls">External URLs</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -93,9 +111,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <ul>
-<li>If you have tons of routes and want to keep this file reasonable, you can delegate "sub-routes" at each controller level.</li>
+                <h1 id="understanding-the-routing">Understanding the routing</h1>
+<p><strong>Routes delegations:</strong></p>
+<ul>
+<li>Routes must be defined in the <strong><em>"baseRoutes.json"</em></strong> file in the the application's config.</li>
+<li>However, when you have a large application, and therefore many routes, managing them all in a single file can become tedious. Therefore Sparc allows for route delegation, by having controller's configuration files deined their own (sub-) routes.<ul>
 <li>A controller can only use URLs beginning by the URL which lead to him. (hence the "delegation" aspect much like DNS zones).  </li>
+</ul>
+</li>
 <li>When analysing the Browser's URL, the router will try all the known routes at that moment (which changes with delegation when new controllers are loaded).  </li>
 </ul>
 <p><strong>The route-findging algorithm goes as this:</strong></p>
@@ -118,7 +141,7 @@
     2. It then adds the routes eventually defined by that controller config. to
        the global routes list.
 
-    3. It now retries to route the URL, to see of some of these new routes gives 
+    3. It now retries to route the URL, to see of some of these new routes give 
        a better score. If yes, it recursively goes back to step 1.
 
     4. When the route does not change anymore, we have found the best possible route, 
@@ -136,7 +159,7 @@
 </code></pre>
 <p>Each part of the object above is described separately below :</p>
 <h3 id="url-matching">URL matching</h3>
-<p><code>url</code> : <strong>String</strong> Is the URL pattern that the router will try to match the current browser's URL against.  </p>
+<p><code>url</code> : <strong>String [Mandatory]</strong> Is the URL pattern that the router will try to match the current browser's URL against.  </p>
 <ul>
 <li>It can contain static parts, and dynamic parts (for parameters).</li>
 <li>For static parts (like <strong><em>"/module1/user"</em></strong> in the example above), the router will try to match it 'as is', at the right place.  </li>
@@ -145,13 +168,26 @@
 <li>If the parameter name is followed by brackets, their content will be used as a regular expression to validate the parameter. Failure to validate a parameter leads to this route not matching.</li>
 </ul>
 <h3 id="roles-matching">Roles matching</h3>
-<p><code>role</code> :<strong>String</strong> Is the role to match with the current user role. if <strong>'*'</strong> then it matches any user role.</p>
+<p><code>role</code> : <strong>String [Mandatory]</strong> Is the role to match with the current user role. Specifying <strong>'*'</strong> matches any user role.</p>
 <h3 id="controller-selection">Controller selection</h3>
-<p><code>controller</code> :<strong>String</strong></p>
+<p><code>controller</code> : <strong>String [Mandatory]</strong>  Is the controller's relative path inside the controllers basePath.<br />
+This field is mandatory, unless the <code>exturl</code> is used instead.</p>
 <h3 id="method-selection">Method selection</h3>
-<p><code>method</code> :<strong>String</strong></p>
+<p><code>method</code> : <strong>String [optional]</strong> If specified: the name of the method to call in that controller.<br />
+In absent, the last segment of the URL will be used.</p>
 <h3 id="method-parameters">Method parameters</h3>
-<p><code>params</code> :<strong>String</strong></p>
+<p><code>params</code> : <strong>String [optional]</strong> An key:value object of static parameters passed to the method, alongside eventual dynamic parameters.<br />
+<strong>Caution</strong>: if the same key is found as dynamic and static parameter, <strong>the static value will prevail</strong>.</p>
+<h3 id="special-routing-cases">Special routing cases:</h3>
+<h4 id="the-default-route">The default route</h4>
+<p>At least one route shall have as <code>url</code> the special value <strong><em>"!defaultroute"</em></strong><br />
+This route is used as the last-ressort route, when no matches could be found.<br />
+This is the equivalent of a server 404 page (But there is no server, hence no status code here)<br />
+The other parameters are as usual, no dynamic parameters are of-course allowed.<br />
+You could have different default pages for different roles if you want (if it make sense for you, otherwise just use one default route with <strong><em> "role" : "*" </em></strong>)</p>
+<h4 id="external-urls">External URLs</h4>
+<p>If <code>exturl</code> is used instead of <code>controller</code>, then this route is considered to be external to the application and the user will be redirected to it.<br />
+The <code>role</code> can be used in conjuction with it, but <code>method</code> and <code>params</code> are meaningless.</p>
               
             </div>
           </div><footer>
