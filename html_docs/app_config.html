@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sparc.internike.com/docs/app_config.html" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Configure your app - Sparc Docs</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Configure your app";
+        var mkdocs_page_input_path = "app_config.md";
+        var mkdocs_page_url = "/docs/app_config.html";
+      </script>
+    
+    <script src="js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> Sparc Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="file_structure.html">Understand the file structure</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="app_config.html">Configure your app</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#general-configuration">General configuration</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#logger-config-key-logger">Logger config (key: "logger")</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#assets-manager-config">Assets manager config</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#router-config">Router config</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#custom-user-class">Custom User class</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#message-bus-config">Message Bus config</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#top-level-routes-definition">Top level routes definition</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dependencies.html">Define your dependencies</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="routing.html">Understanding the routing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="mvc.html">Write your MVC components</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="assets_mgr.html">Use Assets Manager</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Sparc Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Configure your app</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="application-configuration">Application configuration</h1>
+<p>There are two Json files located in /app/config :<br />
+<strong><em>appConfig.json</em></strong> : General configuration parameters for this application.<br />
+<strong><em>baseRoutes.json</em></strong> : Defines the top-level routes</p>
+<h2 id="general-configuration">General configuration</h2>
+<p>This configuration Json file contains one separated block for every configurable core library.</p>
+<h3 id="logger-config-key-logger">Logger config (key: "logger")</h3>
+<ul>
+<li><code>enabled</code> : <strong>Boolean</strong> When false, the logger is ...disabled ;-) Importantly, that means that the browser console remains the original one.</li>
+<li><code>levels</code>  : <strong>Array</strong> Containing either 'warn', 'error' or both.</li>
+<li><code>postUrl</code> : <strong>String</strong> The Url where the Json of the error will be posted</li>
+</ul>
+<p>Example config block:</p>
+<pre><code class="language-json">    &quot;logger&quot;: {
+        &quot;enabled&quot;: true,
+        &quot;levels&quot;: [&quot;warn&quot;, &quot;err&quot;],
+        &quot;postUrl&quot;: &quot;https://mydomain.com/log2mail.php&quot;
+    },
+</code></pre>
+<p>Example Error posted:</p>
+<pre><code class="language-json">    &quot;level&quot;:&quot;WARNING&quot;,
+    &quot;message&quot;:&quot;In template employeeViews/EmployeeView.html, badvariable is not defined !&quot;,
+    &quot;user&quot;:&quot;nike&quot;,
+    &quot;url&quot;:&quot;https://mydomain.com/employees&quot;,
+    &quot;appName&quot;:&quot;MyApp 2.0&quot;,
+    &quot;stacktrace&quot;:[
+        [&quot;processTemplate&quot;,&quot;Assets.js&quot;,[&quot;221&quot;,&quot;25&quot;]],
+        [&quot;replaceByHtml&quot;,&quot;Assets.js&quot;,[&quot;241&quot;,&quot;66&quot;]],
+        [&quot;loadHtml&quot;,&quot;Assets.js&quot;,[&quot;182&quot;,&quot;56&quot;]],
+        [&quot;replaceByHtml&quot;,&quot;Assets.js&quot;,[&quot;246&quot;,&quot;14&quot;]],
+        [&quot;...all the way up to Sparc-core...&quot;]
+    ]
+</code></pre>
+<h3 id="assets-manager-config">Assets manager config</h3>
+<ul>
+<li><code>basePath</code> : <strong>String</strong> The path where all assets are stored</li>
+</ul>
+<p>Example config block:</p>
+<pre><code class="language-json">    &quot;assets&quot;: {
+        &quot;basePath&quot;: &quot;/app/assets/&quot;
+    },
+</code></pre>
+<h3 id="router-config">Router config</h3>
+<ul>
+<li><code>getRoleFrom</code> : <strong>String</strong> This is a String that represents a <strong>function or method</strong>.<br />
+It Will be called by the router to get the role used in routing.<br />
+Standard value is <strong><em>"app.User.getRole"</em></strong>, which uses the (early loaded) User class that you can override (see "Custom User class" below)<br />
+<strong>Caution</strong> : This is needed early in the routing process, and therefore should be able to answer right away (no promise).<br />
+If this string does not represent a callable, it is used as a plain string value. (useful for no-login-dev-mode)</li>
+<li><code>controllersPath</code> : <em>String</em><em> The root path of controllers.<br />
+Standard value is </em><strong>"/app/controllers"</strong>*.</li>
+<li><code>modelsPath</code> : <em>String</em><em>  The root path of models.<br />
+Standard value is </em><strong>"/app/models"</strong>*.</li>
+<li><code>viewsPath</code> : <em>String</em><em>  The root path of views.<br />
+Standard value is </em><strong>"/app/views"</strong>*.</li>
+</ul>
+<p>Example config block:</p>
+<pre><code class="language-json">    &quot;router&quot;: {
+        &quot;getRoleFrom&quot;:  &quot;app.User.getRole&quot;,
+        &quot;controllersPath&quot;: &quot;/app/controllers/&quot;,
+        &quot;modelsPath&quot;: &quot;/app/models/&quot;,
+        &quot;viewsPath&quot;: &quot;/app/views/&quot;
+    },
+</code></pre>
+<h3 id="custom-user-class">Custom User class</h3>
+<p><strong>String</strong> This is the name (without .js) of the file containing your override of the User class.<br />
+<strong>Caution</strong> : The file cannot be called "User", as the loader would consider this class is already loaded. (the Baseclass is indeed)<br />
+Look at the base class at <strong><em>/core/baseClasses/User.js</em></strong> to see the interface.
+Here is a typical example :</p>
+<pre><code class="language-javascript">'use strict'
+app.LoadedClasses.User = class extends app.LoadedClasses.User {
+
+    constructor(){
+        super();
+    }
+
+    checkAuthenticated(callBack){ // Call an service to know if we are logged in
+        fetch('https://mydomain/checkAuthenticated?'+crypto.randomUUID(),{
+            method: 'GET',
+            credentials: 'include'
+            })
+            .then(response =&gt; response.json())
+            .then(resp =&gt; { 
+                if(resp.success){
+                    this.isAuthenticated = resp.data.isAuthenticated;
+                    if(resp.data.isAuthenticated) { // Meanwhile get user infos
+                        this.userInfo = resp.data.userInfo;
+                        callBack();
+                    } else {
+                        console.warn('User was not authenticated !');
+                        this.authUrl = resp.data.authUrl;
+                        callBack(); // sparCore defaults is call gotoLogin below
+                    }
+                } else {
+                    console.error('Server error calling checkAuthenticated !?')
+                }
+            });         
+    }
+
+    gotoLogin(){ // Redirect, or call a service, or show a login button... 
+        document.location.href = 'https://mydomain.com/login.php';
+    }
+}
+</code></pre>
+<h3 id="message-bus-config">Message Bus config</h3>
+<p>This the configuration of the messagebus module. As messageBus uses Websocket-based communication, a lot of this config. has to do with WSS.</p>
+<ul>
+<li><code>enabled</code> :  <strong>Boolean</strong> When false, the messageBus is ...disabled ;-)</li>
+<li><code>pathToWorker"</code> : <strong>String</strong> This lib also uses a webworker which cannot be launched through the normal dependency system. This is the path to the worker script.<br />
+Standard value is <strong><em>"/core/libs/MessageBusWorker.js"</em></strong>.</li>
+<li><code>protocol"</code> : The protocol part of the URL to the websocket server.
+Standard value is <strong><em>"wss:"</em></strong>.</li>
+<li><code>host"</code> : The host part of the URL to the websocket server. If absent or empty, the host will be extracted from the current browser's URL (same URL is a requirement often imposed by the browser, firewalls, proxies... anyway)</li>
+<li><code>port"</code> : The port part of the URL to the websocket server</li>
+<li><code>path"</code> : The (Where the HTTP-Upgrade will take place)</li>
+<li><code>connectTimeout</code> : <strong><em>Float</em></strong> If the server remains silent at a connection attempt, connection will timeout after this many seconds.<br />
+<strong>Caution</strong> : If <strong><em>autoReconnect</em></strong> is &gt; 0, the  Auto-reconnect will occur after <strong><em>connectTimeout + autoReconnect</em></strong> seconds, unless the door is immediately slammed in your face right away (then <strong><em>autoReconnect</em></strong> seconds). If your WSS server is hidden behind an Nginx (which you should really do in prod.), you should also pay attention to the Nginx parameters <strong><em>proxy_connect_timeout, proxy_send_timeout and proxy_read_timeout</em></strong> </li>
+<li><code>autoReconnect</code> : <strong><em>Float</em></strong> If zero (or false): no auto-reconnect upon connection loss. Otherwise, the time, in seconds (decimals ok), before he FIRST reconnecting attempt. (ex: 5 seconds)</li>
+<li><code>autoReconnectTimeFactor</code> : <strong><em>Float</em></strong> : on every successive reconnection failure, the auto-reconnect time is multiplied by this factor, to avoid reconnect-spamming when the WSS server is down. </li>
+<li><code>autoReconnectTimeMax</code> : <strong><em>Float</em></strong> : The ceiling value for the auto-reconnect time. 
+For example with <strong><em>autoReconnect:5, autoReconnectTimeFactor:2 , autoReconnectTimeMax:60</em></strong>, attempts would occur at <strong><em>(connection loss) + 5sec, + 10sec, +20sec, +40sec then every minute</em></strong>)</li>
+<li><code>autoReconnectJitterPercent</code> : <strong><em>Float</em></strong> : If your websocket server goes down, all clients are loosing connection precisely at the same time. Therefore, their reconnection attempts will be synchronized, which is not what you want when you'll bring your WSS server back up !<br />
+If this parameter is non-zero, it represents the percentage of random "jitter" applied on the next reconnect time. For example: with a reconnect time of 30 sec, and <strong><em>autoReconnectJitterPercent:10 </em></strong> : the actual reconnection will occur between 28.5 and 31.5 seconds later.</li>
+</ul>
+<pre><code class="language-json">    &quot;messageBus&quot;:{
+        &quot;enabled&quot;: true,
+        &quot;pathToWorker&quot;: &quot;/core/libs/MessageBusWorker.js&quot;,
+        &quot;protocol&quot;: &quot;wss://&quot;,
+        &quot;port&quot;: &quot;&quot;,
+        &quot;path&quot;: &quot;/msgbus&quot;,
+        &quot;connectTimeout&quot;: 5,
+        &quot;autoReconnect&quot;: 5,
+        &quot;autoReconnectTimeFactor&quot;: 1.3,
+        &quot;autoReconnectTimeMax&quot;: 30,
+        &quot;autoReconnectJitterPercent&quot;: 10
+    }
+</code></pre>
+<h2 id="top-level-routes-definition">Top level routes definition</h2>
+<p>Here are the definitions of the top-level routes used by the router.
+This file contains a Json  Array of route objects such as for example :</p>
+<pre><code class="language-json">    {
+        &quot;url&quot;: &quot;/module1/user:uid(\\d+)&quot;,
+        &quot;role&quot;: &quot;theboss&quot;,
+        &quot;controller&quot; : &quot;/common/User/UserCtrl&quot;,
+        &quot;method&quot;: &quot;userMod&quot;
+    },  
+</code></pre>
+<p>See <strong><em>"Understanding the routing"</em></strong> section for more details.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="file_structure.html" class="btn btn-neutral float-left" title="Understand the file structure"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="dependencies.html" class="btn btn-neutral float-right" title="Define your dependencies">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="file_structure.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="dependencies.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme_extra.js" defer></script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

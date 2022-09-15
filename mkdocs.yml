@@ -1,0 +1,15 @@
+site_name: Sparc Docs
+site_url: https://sparc.internike.com/docs
+theme: readthedocs
+use_directory_urls: false
+docs_dir: md_docs
+site_dir: html_docs
+
+nav:
+    - Home: index.md
+    - Understand the file structure: file_structure.md
+    - Configure your app: app_config.md
+    - Define your dependencies: dependencies.md
+    - Understanding the routing: routing.md
+    - Write your MVC components: mvc.md
+    - Use Assets Manager: assets_mgr.md

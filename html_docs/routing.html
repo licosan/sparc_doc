@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sparc.internike.com/docs/routing.html" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Understanding the routing - Sparc Docs</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Understanding the routing";
+        var mkdocs_page_input_path = "routing.md";
+        var mkdocs_page_url = "/docs/routing.html";
+      </script>
+    
+    <script src="js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> Sparc Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="file_structure.html">Understand the file structure</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="app_config.html">Configure your app</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dependencies.html">Define your dependencies</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="routing.html">Understanding the routing</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="mvc.html">Write your MVC components</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="assets_mgr.html">Use Assets Manager</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Sparc Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Understanding the routing</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <ul>
+<li>If you have tons of routes and want to keep this file reasonable, you can delegate "sub-routes" at each controller level.</li>
+<li>A controller can only use URLs beginning by the URL which lead to him. (hence the "delegation" aspect much like DNS zones).  </li>
+<li>When analysing the Browser's URL, the router will try all the known routes at that moment (which changes with delegation when new controllers are loaded).  </li>
+</ul>
+<p><strong>The route-findging algorithm goes as this:</strong></p>
+<pre><code>    1. Try to match the current URL againts each of all known routes.
+
+    2. When the URL matches, check that the user role matches the route role too,  
+       unless the route role is '*' (meaning everyone)
+
+    3. When something doesn not match, discard the route.
+
+    4. When both are ok, give this route a score which is the number of matching parts ,
+       then keep it as candidate.
+
+    5. When all known routes are exhausted, the candidate with the highest score is used.
+</code></pre>
+<p><strong>The routing algorithm then goes as this:</strong></p>
+<pre><code>    1. When the best route is found (see above), the router loads the config of 
+       the corresponding controller.
+
+    2. It then adds the routes eventually defined by that controller config. to
+       the global routes list.
+
+    3. It now retries to route the URL, to see of some of these new routes gives 
+       a better score. If yes, it recursively goes back to step 1.
+
+    4. When the route does not change anymore, we have found the best possible route, 
+      delegations included. It is now time to :
+
+        1. Instantiate the controller.
+
+        2. Choose the proper method:
+            - If a method was specified in the route definition (see below), use it.
+            - If not then use the last part of the url as the method name.
+
+        3. Build a parameters object conatining :
+            - Static parameters found in the route definition (see below).
+            - Dynamic parameters extracted (and enventually regexp-validated) from the URL
+</code></pre>
+<p>Each part of the object above is described separately below :</p>
+<h3 id="url-matching">URL matching</h3>
+<p><code>url</code> : <strong>String</strong> Is the URL pattern that the router will try to match the current browser's URL against.  </p>
+<ul>
+<li>It can contain static parts, and dynamic parts (for parameters).</li>
+<li>For static parts (like <strong><em>"/module1/user"</em></strong> in the example above), the router will try to match it 'as is', at the right place.  </li>
+<li>For dynamic parts (like <strong><em>:name</em></strong> or like <strong><em>":uid(\d+)"</em></strong> in the example above), the router will take everything until the next <strong>'/'</strong>, or until the end of the URL.</li>
+<li>The string after the <strong>':'</strong> will be used as parameter name.  The parameter value (transmitted to the controller's method) will be the actual string found at this place of the URL.</li>
+<li>If the parameter name is followed by brackets, their content will be used as a regular expression to validate the parameter. Failure to validate a parameter leads to this route not matching.</li>
+</ul>
+<h3 id="roles-matching">Roles matching</h3>
+<p><code>role</code> :<strong>String</strong> Is the role to match with the current user role. if <strong>'*'</strong> then it matches any user role.</p>
+<h3 id="controller-selection">Controller selection</h3>
+<p><code>controller</code> :<strong>String</strong></p>
+<h3 id="method-selection">Method selection</h3>
+<p><code>method</code> :<strong>String</strong></p>
+<h3 id="method-parameters">Method parameters</h3>
+<p><code>params</code> :<strong>String</strong></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="dependencies.html" class="btn btn-neutral float-left" title="Define your dependencies"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="mvc.html" class="btn btn-neutral float-right" title="Write your MVC components">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="dependencies.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="mvc.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme_extra.js" defer></script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

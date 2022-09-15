@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sparc.internike.com/docs/file_structure.html" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Understand the file structure - Sparc Docs</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Understand the file structure";
+        var mkdocs_page_input_path = "file_structure.md";
+        var mkdocs_page_url = "/docs/file_structure.html";
+      </script>
+    
+    <script src="js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> Sparc Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">Home</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="file_structure.html">Understand the file structure</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#root-directory">Root directory :</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#core">/core :</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#app">/app :</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#appassets">/app/assets :</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="app_config.html">Configure your app</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dependencies.html">Define your dependencies</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="routing.html">Understanding the routing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="mvc.html">Write your MVC components</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="assets_mgr.html">Use Assets Manager</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Sparc Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Understand the file structure</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sparc-file-structure">Sparc file structure</h1>
+<h2 id="root-directory">Root directory :</h2>
+<ul>
+<li><code>/app</code></li>
+<li>This is where your application lives, where you'll do your dev. work.</li>
+<li><code>/core</code></li>
+<li>This is where Sparc mechanics lives (you should not need to touch anything in here).</li>
+<li><code>/index.html</code></li>
+<li>This is the only HTML page ever loaded by your browser. These 10 lines of HTML are bootstrapping Sparc. (see the section about configuring your Nginx / Apache for Sparc)</li>
+</ul>
+<h3 id="core">/core :</h3>
+<p>You should not have to change anyting in here.
+If you do find something helpfull to change in the Core, please consider making a pull-request ;-)
+* <code>/baseClasses</code>
+- Contains model, view, controller and user base classes
+* <code>/helpers</code>
+- Helpers for Sparc itself
+* <code>/libs</code>
+- Libraries for sparc itself. Here lives the Router, the Assets manager, the Logger and the MessageBus.
+* <code>/Sparc-core-1.0.js</code>
+- Sparc bootstrap script. This is also where the Loader lives, as it is immediately needed to load internal (core) libs and MVC base-classes.
+* <code>/utils</code></p>
+<h3 id="app">/app :</h3>
+<ul>
+<li><code>/assets</code></li>
+<li>This folder contains your images, fonts, style-sheets, sounds, static json, and html templates. This default path could be changed via <strong><em>assets.basePath</em></strong> setting in the application config.</li>
+<li><code>/config</code></li>
+<li>This folder contains json configuration files.</li>
+<li><code>/controllers</code></li>
+<li>This folder contains your controllers, eventually in a directory structure. This default path can be changed via <strong><em>router.controllersPath</em></strong> setting in the app. config.</li>
+<li><code>/docs</code></li>
+<li>This is where you should document your application...just a siggestion ;-).</li>
+<li><code>/helpers</code></li>
+<li>Put here any short, reusable piece of script that can be usefull anywhere in your app (any MVC components). Typically, you'll want to define global functions here like a date-conversion function, or enrich javascript-core prototypes, like adding a 'toCurrency' formatting method to the Number type for example.</li>
+<li><code>/libs</code></li>
+<li>Put here your large scripts, implementing a specific set of features that are not suited in a model, view or controller. Typically, a library defines a class that will be instantiated by models, views of controllers.</li>
+<li><code>thirdparty</code></li>
+<li>Put here any external libraries that you need. You probably want to git-ignore this folder !</li>
+<li><code>/models</code></li>
+<li>This folder contains your models, eventually in a directory structure. This default path can be changed via <strong><em>router.modelsPath</em></strong> setting in the app. config.</li>
+<li><code>/views</code></li>
+<li>This folder contains your views, eventually in a directory structure. This default path can be changed via <strong><em>router.viewsPath</em></strong> setting in the app. config.</li>
+</ul>
+<h4 id="appassets">/app/assets :</h4>
+<ul>
+<li><code>fonts</code></li>
+<li>Put here all the fonts (like .ttf, .otf, .woff) that some of your views depends upon.</li>
+<li><code>html</code></li>
+<li>Put here all the static html fragments you might need in your views. Templating is allowed, using the standard "template literals" syntax of javascript. Template interpretation will activate if anf only if you pass a <code>templateData</code> object to the asset helpers functions. 
+This is for general-purpose HTML fragments / templates. When your template is uniquely tied to a specific view, you probably want to store it in the views folder, alongside the corresponding javascript file (same name but .html). See the topic "Using Assets manager")</li>
+<li><code>images</code></li>
+<li>Put here all the images that some of your views depends upon.</li>
+<li><code>json</code></li>
+<li>Put here any piece of STATIC json that any component might depends upon.</li>
+<li><code>sfx</code></li>
+<li>Put here all the .mp3 sounds that some of your views depends upon.</li>
+<li><code>styles</code></li>
+<li>Put here all the .css files that some of your views depends upon.</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="index.html" class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="app_config.html" class="btn btn-neutral float-right" title="Configure your app">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="index.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="app_config.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme_extra.js" defer></script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
