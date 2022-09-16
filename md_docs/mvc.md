@@ -81,6 +81,14 @@ for the model or view. It is the bridge between views-logic (graphical behavior)
 
 In Sparc (again like in most MVC frameworks), your controllers are javascript scripts that must implement a class which inherit from the controller base-class (in ***core/baseClasses***)
 
+**Important** : Controller methods are called with a single argument, which is an object containing any number of named paramerters.  
+So a method looks like :
+```javascript
+    myMethod(args){
+        if(args.id != 0) ...
+        if(args.coords.x>100)
+    }
+```
 
 ### controllers config.
 In Sparc, each controller is accompagnied by a mandatory configuration file.  
@@ -152,4 +160,16 @@ it will end-up in the controller ***/module2/userEditorCtrl***.
 This is because the router was first directed toward the controller ***/module2/userCtrl***, 
 but it then added the new rule like ***"url" : "/module2/user/642/edit"*** (notice how the already-matched part is prepended).  
 As this new (local) route matches better than the previous one attempted, it wins.
+
+#### Controller dependencies:
+
+Each of the keys `models`, `views` and `dependencies`, expects an array of script names (with or withoout the '.js').  
+They can include a path part (like ***"/persons/employees"***) which is respectively below
+***/app/models***, ***/app/views*** for `models` and `views`,  and directly below the site root for `dependencies`.  
+
+> As you can see, the `dependencies` is used for any script which is not a model, nor a view.  
+You can specify values like ***"/app/libs/xxx"*** for your own app-related libraries, ***"/app/thirdparty/xxx"*** for any thirdparty scripts, or anything somewhere else on your server, or even ***"https://code.jquery.com/jquery-3.6.1.slim.min.js"*** to get an external script (like from a CDN).
+
+
+
 

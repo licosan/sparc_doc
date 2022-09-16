@@ -66,16 +66,10 @@
     <li class="toctree-l2"><a class="reference internal" href="#controllers">Controllers</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#controllers-config">controllers config.</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#nested-routess">Nested routess:</a>
     </li>
         </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#models-and-views-sript-dependencies">Models and Views (sript) dependencies</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#other-script-dependencies">Other (script) dependencies</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#assets-depedencies">Assets depedencies</a>
     </li>
         </ul>
     </li>
@@ -117,7 +111,9 @@ They directly manage the data, provide methods that help implement the logic and
 of the application.
 </code></pre>
 <p>On the client side, they also implement the exchanges with the Back-end (which -in turn- usually talks with a DB of any kind).
-In Sparc (like in most MVC frameworks), your models are javascript scripts that must implement a class which inherit from the model base-class (in <strong><em>core/baseClasses</em></strong>)</p>
+In Sparc (like in most MVC frameworks), your models are javascript scripts that must implement a class which inherit from the model base-class (in <strong><em>core/baseClasses</em></strong>)
+If you want some "universal" methods to help your models low-level with your servers (like data-caching, lazy-loading, protocols mgt...), 
+a good place to put them is in the model base-class.</p>
 <h2 id="views">Views</h2>
 <pre><code class="language-text">Quick reminder :
 Views implement any representation of information in text, tables, diagrams, etc. 
@@ -158,13 +154,94 @@ In pure javascript, if an expression in the template is wrong (syntax or unknown
 If you use the methods mentionned above, a pre-flight-check is performed on your
 template pefore handing it to interpretation: Any wrong expression will be suppressed, a clear warning will be issued at the console,
 and <strong>your template will not crash your view !</strong></p>
+<p><strong>A word about the path to your templates:</strong>
+When using an external template for a view, you need to include your template as a dependecy of that view.<br />
+<strong><em>There are to possible places for your templates:</em></strong></p>
+<blockquote>
+<p>some people prefer to have the view class (.js file) alongside with it's corresponding template (usually same name in .html).
+This means it will be located somewhere below <strong><em>/app/views</em></strong>
+When that is your case,  you need to use the <code>views</code> section of the <code>assets</code> dependency block, that assumes this particular path, keeping your config small and readable (only view name, or short path relative to <strong><em>/app/views</em></strong>).<br />
+When using Assets helper methods, use those ending with 'View' (namely: <strong><em>replaceByView, appendByView,  prependByView</em></strong>)   </p>
+<p>Other people prefer to regroup all templates in one place, separated vrom the view classes.<br />
+In that case, you can place them in the assets store at <strong><em>/app/assets/html</em></strong><br />
+When that is your case,  you need to use the <code>html</code> section of the <code>assets</code> dependency block, that assumes this particular path.<br />
+When using Assets helper methods, you then use those ending with 'Html' (namely: <strong><em>replaceByHtml, appendByHtml,  prependByHtml</em></strong>)   </p>
+<p>This difference exists because for <code>html</code>, the assets manager (like for any other asset-type) can also cope with any other relative of absolute path or even with external http(s) urls.</p>
+</blockquote>
 </blockquote>
 <h2 id="controllers">Controllers</h2>
+<pre><code class="language-text">Quick reminder : Controllers accept user inputs and converts them to commands (methods)  
+for the model or view. It is the bridge between views-logic (graphical behavior), and models-logic (business-logic).
+</code></pre>
+<p>In Sparc (again like in most MVC frameworks), your controllers are javascript scripts that must implement a class which inherit from the controller base-class (in <strong><em>core/baseClasses</em></strong>)</p>
 <h3 id="controllers-config">controllers config.</h3>
-<h2 id="dependencies">Dependencies</h2>
-<h3 id="models-and-views-sript-dependencies">Models and Views (sript) dependencies</h3>
-<h3 id="other-script-dependencies">Other (script) dependencies</h3>
-<h3 id="assets-depedencies">Assets depedencies</h3>
+<p>In Sparc, each controller is accompagnied by a mandatory configuration file.<br />
+It is a json file (.json) placed alongside your controller script (.js) file.<br />
+<strong>It is mandatory</strong>. A controller without config. will not be loaded by the router.<br />
+Everything it contains is optional, but the file and sections must be present. <br />
+A minimal controller config. looks like this:</p>
+<pre><code class="language-json">{ 
+  &quot;routes&quot;:         [ ],
+  &quot;models&quot;:         [ &quot;myModel&quot; ],
+  &quot;views&quot;:          [ &quot;myView&quot; ],
+  &quot;dependencies&quot;:   [ ],
+  &quot;assets&quot;:         { &quot;fonts&quot; : [ ],
+                      &quot;styles&quot;: [ ],
+                      &quot;html&quot;:   [ ],
+                      &quot;views&quot;:  [ ],
+                      &quot;images&quot;: [ {&quot;name&quot;:&quot;logo.jpg&quot;} ],
+                      &quot;sfx&quot;:    [ ],
+                      &quot;json&quot;:   [ ]
+                    }
+}
+
+</code></pre>
+<p>The controller config. defines:</p>
+<ul>
+<li>This controller nested routes</li>
+<li>This Controller dependencies:<ul>
+<li>Models dependencies</li>
+<li>Views dependencies</li>
+<li>Other dependencies (libs, thirdparties,...)</li>
+<li>Assets dependencies (images, styles, fonts, sounds, view-templates, other-html-fragments, static-json-files)</li>
+</ul>
+</li>
+</ul>
+<h4 id="nested-routess">Nested routess:</h4>
+<p>They use exactly the same syntax that the op-level routes (see <a href="routing.html">"Understand routing"</a> )
+<strong>But</strong> the url parts are automatically prefixed with the part of the current URL which has led to this controller.</p>
+<blockquote>
+<p>For example:
+Consider the top-level route definition:</p>
+</blockquote>
+<pre><code class="language-json">    {
+        &quot;url&quot;: &quot;/module2/user:uid&quot;,
+        &quot;role&quot;: [&quot;*&quot;],
+        &quot;controller&quot; : &quot;/module2/userCtrl&quot;,
+        &quot;method&quot; : &quot;userView&quot;
+    },  
+</code></pre>
+<blockquote>
+<p>Now say that <strong><em>"/module2/userCtrl.json"</em></strong> goes like:</p>
+</blockquote>
+<pre><code class="language-json">{ &quot;routes&quot;:[ 
+        {
+            &quot;url&quot;: &quot;/edit&quot;,
+            &quot;role&quot;: [&quot;admin&quot;],
+            &quot;controller&quot; : &quot;/module2/userEditorCtrl&quot;,
+            &quot;method&quot; : &quot;launchEditor&quot;,
+        },     
+    ], 
+    ...
+}
+</code></pre>
+<blockquote>
+<p>If and URL like <strong><em>https://mydomain.com/module2/user/642/edit</em></strong> is presented to the router by an <strong><em>admin-user</em></strong>, 
+it will end-up in the controller <strong><em>/module2/userEditorCtrl</em></strong>.<br />
+This is because the router was first directed toward the controller <strong><em>/module2/userCtrl</em></strong>, 
+but it then added the new rule like <strong><em>"url" : "/module2/user/642/edit"</em></strong> (notice how the already-matched part is prepended).<br />
+As this new (local) route matches better than the previous one attempted, it wins.</p>
+</blockquote>
               
             </div>
           </div><footer>
