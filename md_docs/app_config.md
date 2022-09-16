@@ -22,12 +22,12 @@ Example config block:
 
 Example Error posted:
 ```json
-    "level":"WARNING",
-    "message":"In template employeeViews/EmployeeView.html, badvariable is not defined !",
-    "user":"nike",
-    "url":"https://mydomain.com/employees",
-    "appName":"MyApp 2.0",
-    "stacktrace":[
+    "level": "WARNING",
+    "message": "In template employeeViews/EmployeeView.html, badvariable is not defined !",
+    "user": "nike",
+    "url": "https://mydomain.com/employees",
+    "appName": "MyApp 2.0",
+    "stacktrace": [
         ["processTemplate","Assets.js",["221","25"]],
         ["replaceByHtml","Assets.js",["241","66"]],
         ["loadHtml","Assets.js",["182","56"]],
@@ -164,4 +164,4 @@ This file contains a Json  Array of route objects such as for example :
 ```
 - If you have tons of routes and want to keep this file reasonable, you can delegate "sub-routes" at each controller level.
 
-See ["Understanding the routing"](./routing.html) section for more details.
+See ["Understanding the routing"](./routing.md) section for more details.

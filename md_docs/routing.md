@@ -1,4 +1,4 @@
-# Understanding the routing
+# Understand the routing
 
 **Routes delegations:**
 

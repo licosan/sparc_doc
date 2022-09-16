@@ -53,11 +53,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="dependencies.html">Define your dependencies</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="routing.html">Understanding the routing</a>
+                <li class="toctree-l1"><a class="reference internal" href="routing.html">Understand the routing</a>
                 </li>
               </ul>
               <ul class="current">
@@ -69,9 +65,17 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#controllers">Controllers</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#nested-routes">Nested routes</a>
+    <li class="toctree-l3"><a class="reference internal" href="#controllers-config">controllers config.</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#models-and-views-sript-dependencies">Models and Views (sript) dependencies</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#other-script-dependencies">Other (script) dependencies</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#assets-depedencies">Assets depedencies</a>
     </li>
         </ul>
     </li>
@@ -107,15 +111,65 @@
               
                 <h1 id="write-your-models-view-and-controllers">Write your Models, View and Controllers</h1>
 <h2 id="models">Models</h2>
+<pre><code class="language-text">Quick reminder :
+Models implement the application's dynamic data structures, independent of the user interface. 
+They directly manage the data, provide methods that help implement the logic and business rules
+of the application.
+</code></pre>
+<p>On the client side, they also implement the exchanges with the Back-end (which -in turn- usually talks with a DB of any kind).
+In Sparc (like in most MVC frameworks), your models are javascript scripts that must implement a class which inherit from the model base-class (in <strong><em>core/baseClasses</em></strong>)</p>
 <h2 id="views">Views</h2>
+<pre><code class="language-text">Quick reminder :
+Views implement any representation of information in text, tables, diagrams, etc. 
+Multiple views of the same information are possible.  
+Their algorithmic should concern only the (graphical) presentation of data.
+</code></pre>
+<p>To implement a view client-side, you need two parts: some HTML, and some javascript that helps shaping it, and integrate data in it.
+In Sparc (again like in most MVC frameworks), your views are javascript scripts that must implement a class which inherit from the view base-class (in <strong><em>core/baseClasses</em></strong>)</p>
+<p>About the HTML (or template), two approaches are possible (your choice) :</p>
+<ol>
+<li>
+<p>Integrated views : the HTML is embed directly within your javascript code. Usually you would use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">template literals</a>, by means of backtits, to avoid cumbresome concatenation of strings.</p>
+</li>
+<li>
+<p>Splitted script-HTML : If the HTML fragment is large, it is often more convenient to store it in a separate file, stored alongside the script. 
+Sparc lets you do this easily, by using its internal dependency mechanism. (See the 'views' attribute of the controllers config).</p>
+</li>
+</ol>
+<p>Both approaches can of course be combined in a single app, or even in a single view.</p>
+<blockquote>
+<p><strong>A word about templating:</strong>
+When embedding HTML inside your javascript, you can use template literals. 
+In other words, your HTML can include javascript expressions such as <strong><em>${x+5}</em></strong>.
+They will be evaluated by javascript, using variables in the current scope,
+and replaced by their result. </p>
+<p><strong>So what about templating in a "splitted script-HTML" context ?</strong><br />
+Templates are managed by the Assets manager, and it provides methods to integrate 
+your view template into the existing DOM (namely: <strong><em>replaceByView, appendByView,  prependByView</em></strong>).<br />
+One cool feature of these methods is that they accept an argument called <strong><em>templateData</em></strong>.<br />
+<strong><em>templateData</em></strong> must be a key-value object, where the keys are matching your template variables.
+If present, it will trigger a genuine javascript-level "template literals" interpretation 
+of your template. No new fancy templating engine dependency (your templates are agnostic), no new syntax to learn,
+100% backward and forward compatibility with vanilla JS !</p>
+<p><strong>Fool-proof templating...</strong><br />
+As explained above, templates interpretation use the genuine vanilla-javascript internal interpretation, but with a small addition:<br />
+In pure javascript, if an expression in the template is wrong (syntax or unknown variable),
+<strong>your script will crash.</strong><br />
+If you use the methods mentionned above, a pre-flight-check is performed on your
+template pefore handing it to interpretation: Any wrong expression will be suppressed, a clear warning will be issued at the console,
+and <strong>your template will not crash your view !</strong></p>
+</blockquote>
 <h2 id="controllers">Controllers</h2>
-<h3 id="nested-routes">Nested routes</h3>
-<h3 id="dependencies">Dependencies</h3>
+<h3 id="controllers-config">controllers config.</h3>
+<h2 id="dependencies">Dependencies</h2>
+<h3 id="models-and-views-sript-dependencies">Models and Views (sript) dependencies</h3>
+<h3 id="other-script-dependencies">Other (script) dependencies</h3>
+<h3 id="assets-depedencies">Assets depedencies</h3>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="routing.html" class="btn btn-neutral float-left" title="Understanding the routing"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="routing.html" class="btn btn-neutral float-left" title="Understand the routing"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="assets_mgr.html" class="btn btn-neutral float-right" title="Use Assets Manager">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 

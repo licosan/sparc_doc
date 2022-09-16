@@ -9,7 +9,7 @@ nav:
     - Home: index.md
     - Understand the file structure: file_structure.md
     - Configure your app: app_config.md
-    - Define your dependencies: dependencies.md
-    - Understanding the routing: routing.md
+    - Understand the routing: routing.md
     - Write your MVC components: mvc.md
     - Use Assets Manager: assets_mgr.md
+
