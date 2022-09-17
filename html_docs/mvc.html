@@ -69,6 +69,8 @@
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#nested-routess">Nested routess:</a>
     </li>
+    <li class="toctree-l4"><a class="reference internal" href="#controller-dependencies">Controller dependencies:</a>
+    </li>
         </ul>
     </li>
         </ul>
@@ -174,6 +176,13 @@ When using Assets helper methods, you then use those ending with 'Html' (namely:
 for the model or view. It is the bridge between views-logic (graphical behavior), and models-logic (business-logic).
 </code></pre>
 <p>In Sparc (again like in most MVC frameworks), your controllers are javascript scripts that must implement a class which inherit from the controller base-class (in <strong><em>core/baseClasses</em></strong>)</p>
+<p><strong>Important</strong> : Controller methods are called with a single argument, which is an object containing any number of named paramerters.<br />
+So a method looks like :</p>
+<pre><code class="language-javascript">    myMethod(args){
+        if(args.id != 0) ...
+        if(args.coords.x&gt;100)
+    }
+</code></pre>
 <h3 id="controllers-config">controllers config.</h3>
 <p>In Sparc, each controller is accompagnied by a mandatory configuration file.<br />
 It is a json file (.json) placed alongside your controller script (.js) file.<br />
@@ -241,6 +250,14 @@ it will end-up in the controller <strong><em>/module2/userEditorCtrl</em></stron
 This is because the router was first directed toward the controller <strong><em>/module2/userCtrl</em></strong>, 
 but it then added the new rule like <strong><em>"url" : "/module2/user/642/edit"</em></strong> (notice how the already-matched part is prepended).<br />
 As this new (local) route matches better than the previous one attempted, it wins.</p>
+</blockquote>
+<h4 id="controller-dependencies">Controller dependencies:</h4>
+<p>Each of the keys <code>models</code>, <code>views</code> and <code>dependencies</code>, expects an array of script names (with or withoout the '.js').<br />
+They can include a path part (like <strong><em>"/persons/employees"</em></strong>) which is respectively below
+<strong><em>/app/models</em></strong>, <strong><em>/app/views</em></strong> for <code>models</code> and <code>views</code>,  and directly below the site root for <code>dependencies</code>.  </p>
+<blockquote>
+<p>As you can see, the <code>dependencies</code> is used for any script which is not a model, nor a view.<br />
+You can specify values like <strong><em>"/app/libs/xxx"</em></strong> for your own app-related libraries, <strong><em>"/app/thirdparty/xxx"</em></strong> for any thirdparty scripts, or anything somewhere else on your server, or even <strong><em>"https://code.jquery.com/jquery-3.6.1.slim.min.js"</em></strong> to get an external script (like from a CDN).</p>
 </blockquote>
               
             </div>

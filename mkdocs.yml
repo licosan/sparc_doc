@@ -12,4 +12,4 @@ nav:
     - Understand the routing: routing.md
     - Write your MVC components: mvc.md
     - Use Assets Manager: assets_mgr.md
-
+    - MessageBus lib: msgbus.md
