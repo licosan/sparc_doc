@@ -1,4 +1,4 @@
-# Sparc file structure
+# 1. Sparc file structure
 
 ## Root directory :
 * `/app`

@@ -1,7 +1,10 @@
-# Assets manager
+# 5. Assets manager
 The assets manager has three purposes:
+
 1. It take care of the loading or pre-loading of your assest like images, styles, fonts, sounds, html fragments (or templates), or json fragments.
+
 2. It takes care of caching: the same asset is never loaded twice as long as you stay in the app, but as soon as the app is reloaded, everything is reloaded (no more browser-cache surprises).
+
 3. It provides helper methods adapted to each asset type, to help you use them.
 
 ```text

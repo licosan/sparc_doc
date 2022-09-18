@@ -21,13 +21,18 @@
 
 * `Truly detached` 
     - Your application boots, and serves all its different URLs without the help of a backend server.
-Only static files are used. Backend server is only there to answer to AJAX requests.
+Only static files are used.  
+    The backend server is only there to answer to AJAX requests.
 
 * `Small footprint, fast serving` 
-    - Loads only what you need, just whene you need it: Scripts and Assets ( like images, fonts, css, ...) are loaded only once (clever non-browser caching), only when needed (lazy-loading).
+    - Loads only what you need, just when you need it: Scripts and Assets (images, fonts, css, ...) are loaded only once (clever non-browser caching), only when needed (lazy-loading).  
+    - **Load few** and small components from the server, 
+    - Have a **small footprint** in the bowser memory, 
+    - **Minimal code exposure:** Expose to he user only the javascript code that this user needs and no more.
 
 * `Clever Loading` 
-    - Scripts can depend on other scripts and on Assets. Define your dependency trees in clear JSON files, and Sparc will make sure everything your script needs is loaded beforehand. It will also optimize the loading by loading several things in parallel, but only where there is no risk to break a dependency.
+    - Scripts can depend on other scripts and on Assets. Define your dependency trees in clear JSON files, and Sparc will make sure everything your script needs is loaded beforehand.  
+    - The loading is also optimized by loading several things in parallel, but only where there is no risk to break a dependency.
 
 * `Powerful URL Routing` 
     - Sparc lets you define route patterns in readable JSON files.

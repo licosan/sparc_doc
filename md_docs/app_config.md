@@ -1,4 +1,4 @@
-# Application configuration
+# 2. Application configuration
 There are two Json files located in /app/config :  
 ***appConfig.json*** : General configuration parameters for this application.  
 ***baseRoutes.json*** : Defines the top-level routes
