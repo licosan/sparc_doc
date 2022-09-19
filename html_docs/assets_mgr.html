@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sparc.internike.com/docs/assets_mgr.html" />
       <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>Use Assets Manager - Sparc Docs</title>
+    <title>5. Use Assets Manager - Sparc Docs</title>
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Use Assets Manager";
+        var mkdocs_page_name = "5. Use Assets Manager";
         var mkdocs_page_input_path = "assets_mgr.md";
         var mkdocs_page_url = "/docs/assets_mgr.html";
       </script>
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="index.html" class="icon icon-home"> Sparc Docs
+          <a href="." class="icon icon-home"> Sparc Docs
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -40,53 +40,50 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Sparc overview</span></p>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="index.html">Home</a>
-                </li>
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">What is it & why?</a>
+                  </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="file_structure.html">Understand the file structure</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="app_config.html">Configure your app</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="routing.html">Understand the routing</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="mvc.html">Write your MVC components</a>
-                </li>
-              </ul>
+              <p class="caption"><span class="caption-text">Learn Sparc in five steps</span></p>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="assets_mgr.html">Use Assets Manager</a>
+                  <li class="toctree-l1"><a class="reference internal" href="file_structure.html">1. Understand the file structure</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="app_config.html">2. Configure your app</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="routing.html">3. Understand the routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mvc.html">4. Write your MVC components</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="assets_mgr.html">5. Use Assets Manager</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#images-assets">Images assets</a>
+    <li class="toctree-l2"><a class="reference internal" href="#general-remarks-for-all-assets-managers-methods">General remarks for all assets manager's methods:</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#fonts-assets">Fonts assets</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#styles-assets">Styles assets</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#sounds-assets">Sounds assets</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#json-assets">Json assets</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#html-assets">Html assets</a>
+    <li class="toctree-l2"><a class="reference internal" href="#available-methods-for-the-different-asset-types">Available methods for the different asset types:</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#dead-html-vs-templating">Dead HTML vs Templating</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#templating-with-template-literals">Templating with Template literals</a>
+    <li class="toctree-l3"><a class="reference internal" href="#images-assets">Images assets</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fonts-assets">Fonts assets</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#styles-assets">Styles assets</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sounds-assets">Sounds assets</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#json-assets">Json assets</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#html-assets">Html assets</a>
     </li>
         </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#view-templates-assets">View templates assets</a>
     </li>
     </ul>
-                </li>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Available plugins</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="msgbus.html">MessageBus lib</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="picoreact.md">Picoreact</a>
+                  </li>
               </ul>
       </div>
     </div>
@@ -95,14 +92,15 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Sparc Docs</a>
+          <a href=".">Sparc Docs</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html" class="icon icon-home" alt="Docs"></a> &raquo;</li>
-      <li>Use Assets Manager</li>
+    <li><a href="." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Learn Sparc in five steps &raquo;</li>
+      <li>5. Use Assets Manager</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -111,12 +109,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="assets-manager">Assets manager</h1>
-<p>The assets manager has three purposes:
-1. It take care of the loading or pre-loading of your assest like images, styles, fonts, sounds, html fragments (or templates), or json fragments.
-2. It takes care of caching: the same asset is never loaded twice as long as you stay in the app, but as soon as the app is reloaded, everything is reloaded (no more browser-cache surprises).
-3. It provides helper methods adapted to each asset type, to help you use them.</p>
-<p>All Assets manager methods share these parameters :</p>
+                <h1 id="5-assets-manager">5. Assets manager</h1>
+<p>The assets manager has three purposes:</p>
+<ol>
+<li>
+<p>It take care of the loading or pre-loading of your assest like images, styles, fonts, sounds, html fragments (or templates), or json fragments.</p>
+</li>
+<li>
+<p>It takes care of caching: the same asset is never loaded twice as long as you stay in the app, but as soon as the app is reloaded, everything is reloaded (no more browser-cache surprises).</p>
+</li>
+<li>
+<p>It provides helper methods adapted to each asset type, to help you use them.</p>
+</li>
+</ol>
+<pre><code class="language-text">Auto-preloading:
+In many situations, the assets manager will in fact be used automatically by the dependency 
+system, to preload what you need son you don't need to worry about it.
+However, Asstes manager also comes with a number of helper methods that simplify the way 
+you'll use the asset once it is pre-loaded.
+They are detailed below together with their respective preloading method.
+</code></pre>
+<h3 id="general-remarks-for-all-assets-managers-methods">General remarks for all assets manager's methods:</h3>
+<ol>
+<li>
+<p><strong>All Assets manager methods share these parameters :</strong></p>
 <p><code>name</code> : <strong>String [Mandatory]</strong> the name of the asset to be loaded. If the file extention is absent, the typical one will be added.
 It should not contain the path to the file.</p>
 <p><code>path</code> : <strong>String [Optional]</strong> The path to the file, if you are using subfolders below the respective assets folders.<br />
@@ -126,40 +142,79 @@ If absent, the file is loaded directly at from the <strong><em>/app/assets/[asse
 The callabck argument is always the instance of the loaded asset.
 It will also be called when the assets loading fails, just after the server's response. In this case the callback argument is null (so you know something went bad).<br />
 Upon such a failure, a warning is also issued at the console.</p>
-<h2 id="images-assets">Images assets</h2>
+</li>
+<li>
+<p><strong>Pre-loading is not mandatory:</strong></p>
+<p>All the methods of assets manager that help you "*<em>use""</em> asset (as opposed to those just loading it), will be happy if you invoke them on a non-already-loaded asset.
+In this case, the method in question will just load the asset last-minute for you.
+But then why should you bother declaring them as dependencies ?<br />
+Well, depending on your server, on the internet connection of the user, and on the weight of the asset, and what you are doing with it,
+the loading time might be preceptible for the user or not.
+For example, an image showing up 500ms late is usually not a big issue, but a sound triggered by a user interaction that starts playing even 300ms late will be clearly perceptible.  </p>
+</li>
+</ol>
+<h3 id="available-methods-for-the-different-asset-types">Available methods for the different asset types:</h3>
+<h4 id="images-assets">Images assets</h4>
 <p><code>GetImage</code> : Preloads an image, and returns a TMG Dom node, not attached to the document.<br />
 If the image was already preloaded, the node will be cloned, and the clone returned.</p>
 <p><code>appendImage</code> : The argument <code>selector</code> <strong>String [Mandatory]</strong>, is used as a traditional Dom selector, and the image is appended <strong>at the end of that node</strong>.<br />
 If the image was not preloaded (manually or via a dependency), it is loaded last minute.</p>
 <p><code>prependImage</code> : The argument <code>selector</code> <strong>String [Mandatory]</strong>, is used as a traditional Dom selector, and the image is appended <strong>at the beginning of that node</strong>.<br />
 If the image was not preloaded (manually or via a dependency), it is loaded last minute.</p>
-<h2 id="fonts-assets">Fonts assets</h2>
+<h4 id="fonts-assets">Fonts assets</h4>
 <p><code>loadFont</code> : Preloads a font, then creates a <a href="https://developer.mozilla.org/en-US/docs/Web/API/FontFace/FontFace">fontFace</a> object.
 The fontFace is then added to the Dom, and the corresponding node is used in the callback, together with the Font's acronym (=font-familly name).<br />
 If the <code>name</code> argument did not include an extension, the extension <strong>'.ttf'</strong> will be used by default (possible extension are '.ttf', '.otf' and 'woff' ).</p>
-<h2 id="styles-assets">Styles assets</h2>
-<p><code>LoadCss</code> : </p>
-<h2 id="sounds-assets">Sounds assets</h2>
-<p><code>loadSound</code> : 
-<code>playSound</code> : </p>
-<h2 id="json-assets">Json assets</h2>
-<p><code>LoadJson</code> : </p>
-<h2 id="html-assets">Html assets</h2>
-<p><code>loadHtml</code> : 
-<code>replaceByHtml</code> : 
-<code>replaceByView</code> : 
-<code>appendHtml</code> : 
-<code>appendView</code> : 
-<code>prependHtml</code> : 
-<code>prependView</code> : </p>
-<h3 id="dead-html-vs-templating">Dead HTML vs Templating</h3>
-<h4 id="templating-with-template-literals">Templating with Template literals</h4>
-<h2 id="view-templates-assets">View templates assets</h2>
+<p>There are no helper function for fonts. (using them just means using their acronym (=font-familly name) in some styling)</p>
+<h4 id="styles-assets">Styles assets</h4>
+<p><code>LoadCss</code> : Loads a CSS file and applies it.</p>
+<p>There are no helper function for css. (css references can be used as soon as the css is loaded)</p>
+<h4 id="sounds-assets">Sounds assets</h4>
+<p><code>loadSound</code> : Preloads a sound. if no file extension is given, '.mp3' is assumed.<br />
+The sound is not played.<br />
+As soon as it is fully-loaded (readyState = 'canplaythrough'), the callback returns the <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement/Audio">Audio element</a></p>
+<p><code>playSound</code> : Plays a preloaded sound, from beginning to end.<br />
+One particular sound must finish playing before you play it again (no overlap with itself), but sound can be played while another sound is still playing (overlap between different sounds).</p>
+<pre><code class="language-text">Sound assets used here are just intended to embellish and improve a UI experience. 
+They are supposed to be short and meaningfull. 
+The assets manager is not made to play long mp3 (like music or so), 
+where you'd want to provide some kind controls like pause, rewind, volume etc.
+</code></pre>
+<h4 id="json-assets">Json assets</h4>
+<p><code>LoadJson</code> : Preloads a json file, and returns the corresponding (parsed) objectvia the callback.<br />
+This is made for "Static" Json files (like some config, user defaults,...) that are not meant to change during the app. usage.
+Any (even slightly-) dynamic data shall probably come from  your back-end server, via one of your controllers.</p>
+<h4 id="html-assets">Html assets</h4>
+<p><code>loadHtml</code> : Loads an html fragment, or a template.</p>
+<p><code>replaceByHtml</code> : Uses an HTML fragment or template as replacement for the inner content of Dom each nodes given by the css selector (given by the <code>selector</code> argument).<br />
+If the argument <code>templateData</code> is a key-value object, the asset is considered as a template that is processed as a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">template literals</a>. 
+For more info about templating in Sparc, check the <a href="mvc.html">Views section of "Write your MVC components"</a> )</p>
+<p><code>replaceByView</code> : Same as <code>replaceByHtml</code>, but assuming the path starts in <strong><em>/app/views</em></strong>.</p>
+<p><code>appendHtml</code> : Creates a Dom element of type <code>element</code> argument (defaults to 'div').<br />
+Fills its inner content with the HTML fragment or template.
+Then adds this element <strong>at the end</strong> of each Dom nodes given by the css selector (given by the <code>selector</code> argument).<br />
+If the argument <code>templateData</code> is a key-value object, the asset is considered as a template that is processed as a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">template literals</a>. 
+For more info about templating in Sparc, check the <a href="mvc.html">Views section of "Write your MVC components"</a> )</p>
+<p><code>appendView</code> : Same as <code>appendHtml</code>, but assuming the path starts in <strong><em>/app/views</em></strong>.</p>
+<p><code>prependHtml</code> :  Creates a Dom element of type <code>element</code> argument (defaults to 'div').<br />
+Fills its inner content with the HTML fragment or template. 
+Then adds this element <strong>at the beginning</strong> of each Dom nodes given by the css selector (given by the <code>selector</code> argument). <br />
+If the argument <code>templateData</code> is a key-value object, the asset is considered as a template that is processed as a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">template literals</a>. 
+For more info about templating in Sparc, check the <a href="mvc.html">Views section of "Write your MVC components"</a> )</p>
+<p><code>prependView</code> : Same as <code>prependHtml</code>, but assuming the path starts in <strong><em>/app/views</em></strong>.</p>
+<p><code>processTemplate</code> : Used internally by the methods above tp process the html when it is considered as a template. 
+For more info about templating in Sparc, check the <a href="mvc.html">Views section of "Write your MVC components"</a> )</p>
+<p>In case you'd want to use it directly, you'd call it with the followinf arguments:</p>
+<p><code>name</code> <strong>String</strong> Template name, just used for console warnings when the pre-flight check fails.</p>
+<p><code>html</code> <strong>String</strong> Template content</p>
+<p><code>templateData</code> <strong>Key-value Object</strong> used for the evaluation of expressions.</p>
+<p>It returns a <strong>String</strong> containing the processed template.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="mvc.html" class="btn btn-neutral float-left" title="Write your MVC components"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="mvc.html" class="btn btn-neutral float-left" title="4. Write your MVC components"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="msgbus.html" class="btn btn-neutral float-right" title="MessageBus lib">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -184,6 +239,8 @@ If the <code>name</code> argument did not include an extension, the extension <s
     
       <span><a href="mvc.html" style="color: #fcfcfc">&laquo; Previous</a></span>
     
+    
+      <span><a href="msgbus.html" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

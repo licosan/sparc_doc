@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sparc.internike.com/docs/routing.html" />
       <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>Understand the routing - Sparc Docs</title>
+    <title>3. Understand the routing - Sparc Docs</title>
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Understand the routing";
+        var mkdocs_page_name = "3. Understand the routing";
         var mkdocs_page_input_path = "routing.md";
         var mkdocs_page_url = "/docs/routing.html";
       </script>
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="index.html" class="icon icon-home"> Sparc Docs
+          <a href="." class="icon icon-home"> Sparc Docs
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -40,20 +40,18 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Sparc overview</span></p>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="index.html">Home</a>
-                </li>
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">What is it & why?</a>
+                  </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="file_structure.html">Understand the file structure</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="app_config.html">Configure your app</a>
-                </li>
-              </ul>
+              <p class="caption"><span class="caption-text">Learn Sparc in five steps</span></p>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="routing.html">Understand the routing</a>
+                  <li class="toctree-l1"><a class="reference internal" href="file_structure.html">1. Understand the file structure</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="app_config.html">2. Configure your app</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="routing.html">3. Understand the routing</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#url-matching">URL matching</a>
     </li>
@@ -74,15 +72,18 @@
         </ul>
     </li>
     </ul>
-                </li>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mvc.html">4. Write your MVC components</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="assets_mgr.html">5. Use Assets Manager</a>
+                  </li>
               </ul>
+              <p class="caption"><span class="caption-text">Available plugins</span></p>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="mvc.html">Write your MVC components</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="assets_mgr.html">Use Assets Manager</a>
-                </li>
+                  <li class="toctree-l1"><a class="reference internal" href="msgbus.html">MessageBus lib</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="picoreact.md">Picoreact</a>
+                  </li>
               </ul>
       </div>
     </div>
@@ -91,14 +92,15 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Sparc Docs</a>
+          <a href=".">Sparc Docs</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html" class="icon icon-home" alt="Docs"></a> &raquo;</li>
-      <li>Understand the routing</li>
+    <li><a href="." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Learn Sparc in five steps &raquo;</li>
+      <li>3. Understand the routing</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -107,7 +109,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="understand-the-routing">Understand the routing</h1>
+                <h1 id="3-understand-the-routing">3.  Understand the routing</h1>
 <p><strong>Routes delegations:</strong></p>
 <ul>
 <li>Routes must be defined in the <strong><em>"baseRoutes.json"</em></strong> file in the the application's config.</li>
@@ -188,8 +190,8 @@ The <code>role</code> can be used in conjuction with it, but <code>method</code>
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="app_config.html" class="btn btn-neutral float-left" title="Configure your app"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="mvc.html" class="btn btn-neutral float-right" title="Write your MVC components">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="app_config.html" class="btn btn-neutral float-left" title="2. Configure your app"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="mvc.html" class="btn btn-neutral float-right" title="4. Write your MVC components">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>

@@ -114,41 +114,12 @@ app.LoadedClasses.User = class extends app.LoadedClasses.User {
 ```
 
 
-### Message Bus config
-This the configuration of the messagebus module. As messageBus uses Websocket-based communication, a lot of this config. has to do with WSS.
-
-* `enabled` :  **Boolean** When false, the messageBus is ...disabled ;-)
-* `pathToWorker"` : **String** This lib also uses a webworker which cannot be launched through the normal dependency system. This is the path to the worker script.  
-Standard value is ***"/core/libs/MessageBusWorker.js"***.
-* `protocol"` : The protocol part of the URL to the websocket server.
-Standard value is ***"wss:"***.
-* `host"` : The host part of the URL to the websocket server. If absent or empty, the host will be extracted from the current browser's URL (same URL is a requirement often imposed by the browser, firewalls, proxies... anyway)
-* `port"` : The port part of the URL to the websocket server
-* `path"` : The (Where the HTTP-Upgrade will take place)
-* `connectTimeout` : ***Float*** If the server remains silent at a connection attempt, connection will timeout after this many seconds.  
-**Caution** : If ***autoReconnect*** is > 0, the  Auto-reconnect will occur after ***connectTimeout + autoReconnect*** seconds, unless the door is immediately slammed in your face right away (then ***autoReconnect*** seconds). If your WSS server is hidden behind an Nginx (which you should really do in prod.), you should also pay attention to the Nginx parameters ***proxy_connect_timeout, proxy_send_timeout and proxy_read_timeout*** 
-* `autoReconnect` : ***Float*** If zero (or false): no auto-reconnect upon connection loss. Otherwise, the time, in seconds (decimals ok), before he FIRST reconnecting attempt. (ex: 5 seconds)
-* `autoReconnectTimeFactor` : ***Float*** : on every successive reconnection failure, the auto-reconnect time is multiplied by this factor, to avoid reconnect-spamming when the WSS server is down. 
-* `autoReconnectTimeMax` : ***Float*** : The ceiling value for the auto-reconnect time. 
-For example with ***autoReconnect:5, autoReconnectTimeFactor:2 , autoReconnectTimeMax:60***, attempts would occur at ***(connection loss) + 5sec, + 10sec, +20sec, +40sec then every minute***)
-* `autoReconnectJitterPercent` : ***Float*** : If your websocket server goes down, all clients are loosing connection precisely at the same time. Therefore, their reconnection attempts will be synchronized, which is not what you want when you'll bring your WSS server back up !  
-If this parameter is non-zero, it represents the percentage of random "jitter" applied on the next reconnect time. For example: with a reconnect time of 30 sec, and ***autoReconnectJitterPercent:10 *** : the actual reconnection will occur between 28.5 and 31.5 seconds later.
+### Plugins config
+For each of the available plugins, there is usually a a configuration block of the same name.
+Normally, plugins should have a `enabled` flag to enable them.
 
 
-```json
-    "messageBus":{
-        "enabled": true,
-        "pathToWorker": "/core/libs/MessageBusWorker.js",
-        "protocol": "wss://",
-        "port": "",
-        "path": "/msgbus",
-        "connectTimeout": 5,
-        "autoReconnect": 5,
-        "autoReconnectTimeFactor": 1.3,
-        "autoReconnectTimeMax": 30,
-        "autoReconnectJitterPercent": 10
-    }
-```
+
 
 ## Top level routes definition
 Here are the definitions of the top-level routes used by the router.

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sparc.internike.com/docs/msgbus.html" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>MessageBus lib - Sparc Docs</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "MessageBus lib";
+        var mkdocs_page_input_path = "msgbus.md";
+        var mkdocs_page_url = "/docs/msgbus.html";
+      </script>
+    
+    <script src="js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> Sparc Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Sparc overview</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">What is it & why?</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Learn Sparc in five steps</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="file_structure.html">1. Understand the file structure</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="app_config.html">2. Configure your app</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="routing.html">3. Understand the routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mvc.html">4. Write your MVC components</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="assets_mgr.html">5. Use Assets Manager</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Available plugins</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="msgbus.html">MessageBus lib</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#the-messagebus-plugin-of-sparc">The messageBus plugin of Sparc :</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#methods">Methods</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#events">Events</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="picoreact.md">Picoreact</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">Sparc Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Available plugins &raquo;</li>
+      <li>MessageBus lib</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="message-bus">Message bus</h1>
+<p>The principle of request-reply is at the core of web-applications since they exist.<br />
+It is great but comes with some limitaions:</p>
+<ol>
+<li>Data displayed is not realtime: After your request for a data, if it changes server-side, your app., your user won't know until the next request.</li>
+<li>No server events: You server can only send something to your user when your user takes the initiative.</li>
+<li>No peer-to-peer events: a user app. cannot communicate with another user app. (at least not realtime, and not without using your back-end server wich has probably other things to do than route user-to-user messages).</li>
+</ol>
+<p>Attempts to work-around those inherent limitations exist, but usually involve polling (or long-polling) systems, which put a serious additional strain on your backend server. These are therefore always of a limited use, and not really scallable.</p>
+<p>Without questionning the request-reply model, the use of a realtime messagebus alongside can prove very complementary.</p>
+<p>This can be done with technologies which are now part of all major browsers, and mature enough to be deployed in secure, large, production environments. 
+- Secure Websockets on top of HTTPS (same domain, same port 443), 
+- WebWorkers : Running in a different browser thread than your js app, their data is inaccessible from it or from the console.
+- Server-side messaging brokers like Redis, RabbitMQ, MQTT, Active MQ and many other, offer stable, fast, scalable message routing and queuing.</p>
+<p><img alt="Message bus..." src="img/MessageBus.png" title="Message bus" /></p>
+<h2 id="the-messagebus-plugin-of-sparc">The messageBus plugin of Sparc :</h2>
+<p>The message bus plugin of Sparc, together with it's server Node.js counterpart and a Redis-broker do exactly that : 
+It basically allows your browser app. to connect to Redis Pub-Sub channels, server-side.</p>
+<p>It then becomes possible for your browser app. to send realtime messages to another user, or group of other users, or to any server-side back-end application or micro-service. But more interestingly, any server-side back-end application or micro-service can send realtime data or events to any browser app., user (maybe using your app in several browsers or tabs), or groups of users.</p>
+<p>The messageBus plugin for Sparc takes care of all communication gory details (Ronnections, keep-alive, auto-reconnection, subscriptions management,...).
+It offers a simplified yet powerfull API to tour app.</p>
+<h2 id="configuration">Configuration</h2>
+<ul>
+<li><code>enabled</code> :  <strong>Boolean</strong> When false, the messageBus is ...disabled ;-)</li>
+<li><code>pathToWorker"</code> : <strong>String</strong> This lib also uses a webworker which cannot be launched through the normal dependency system. This is the path to the worker script.<br />
+Standard value is <strong><em>"/core/libs/MessageBusWorker.js"</em></strong>.</li>
+<li><code>protocol"</code> : The protocol part of the URL to the websocket server.
+Standard value is <strong><em>"wss:"</em></strong>.</li>
+<li><code>host"</code> : The host part of the URL to the websocket server. If absent or empty, the host will be extracted from the current browser's URL (same URL is a requirement often imposed by the browser, firewalls, proxies... anyway)</li>
+<li><code>port"</code> : The port part of the URL to the websocket server</li>
+<li><code>path"</code> : The (Where the HTTP-Upgrade will take place)</li>
+<li><code>connectTimeout</code> : <strong><em>Float</em></strong> If the server remains silent at a connection attempt, connection will timeout after this many seconds.<br />
+<strong>Caution</strong> : If <strong><em>autoReconnect</em></strong> is &gt; 0, the  Auto-reconnect will occur after <strong><em>connectTimeout + autoReconnect</em></strong> seconds, unless the door is immediately slammed in your face right away (then <strong><em>autoReconnect</em></strong> seconds). If your WSS server is hidden behind an Nginx (which you should really do in prod.), you should also pay attention to the Nginx parameters <strong><em>proxy_connect_timeout, proxy_send_timeout and proxy_read_timeout</em></strong> </li>
+<li><code>autoReconnect</code> : <strong><em>Float</em></strong> If zero (or false): no auto-reconnect upon connection loss. Otherwise, the time, in seconds (decimals ok), before he FIRST reconnecting attempt. (ex: 5 seconds)</li>
+<li><code>autoReconnectTimeFactor</code> : <strong><em>Float</em></strong> : on every successive reconnection failure, the auto-reconnect time is multiplied by this factor, to avoid reconnect-spamming when the WSS server is down. </li>
+<li><code>autoReconnectTimeMax</code> : <strong><em>Float</em></strong> : The ceiling value for the auto-reconnect time. 
+For example with <strong><em>autoReconnect:5, autoReconnectTimeFactor:2 , autoReconnectTimeMax:60</em></strong>, attempts would occur at <strong><em>(connection loss) + 5sec, + 10sec, +20sec, +40sec then every minute</em></strong>)</li>
+<li><code>autoReconnectJitterPercent</code> : <strong><em>Float</em></strong> : If your websocket server goes down, all clients are loosing connection precisely at the same time. Therefore, their reconnection attempts will be synchronized, which is not what you want when you'll bring your WSS server back up !<br />
+If this parameter is non-zero, it represents the percentage of random "jitter" applied on the next reconnect time. For example: with a reconnect time of 30 sec, and <strong><em>autoReconnectJitterPercent:10 </em></strong> : the actual reconnection will occur between 28.5 and 31.5 seconds later.</li>
+</ul>
+<pre><code class="language-json">    &quot;messageBus&quot;:{
+        &quot;enabled&quot;: true,
+        &quot;pathToWorker&quot;: &quot;/core/libs/MessageBusWorker.js&quot;,
+        &quot;protocol&quot;: &quot;wss://&quot;,
+        &quot;port&quot;: &quot;&quot;,
+        &quot;path&quot;: &quot;/msgbus&quot;,
+        &quot;connectTimeout&quot;: 5,
+        &quot;autoReconnect&quot;: 5,
+        &quot;autoReconnectTimeFactor&quot;: 1.3,
+        &quot;autoReconnectTimeMax&quot;: 30,
+        &quot;autoReconnectJitterPercent&quot;: 10
+    }
+</code></pre>
+<h2 id="methods">Methods</h2>
+<ul>
+<li>
+<p><code>whenConnected</code>
+<code>callback</code> <strong>function</strong> : Will be called when the connection is established.<br />
+If called several times (normally with different callbacks), all the callbacks are queued  and will be executed in order when the connection is ready.  </p>
+</li>
+<li>
+<p><code>ifConnected</code>
+<code>callback</code> <strong>function</strong> : Will be called if the connection is already established. 
+If messageBus is not connected at the time of calling the method, the callback will never be used.  </p>
+</li>
+<li>
+<p><code>executewhenConnectedQ</code>
+You should not call this function directly. It is called internally when the connection becomes ready, to execute the 'TODO-List' created via <code>whenConnected</code>.  </p>
+</li>
+<li>
+<p><code>subscribe</code> : Asks the server to subscribe  to Redis channels. It uses these arguments:  </p>
+<ul>
+<li><code>chans</code> <strong>Array of Strings</strong>: the list of channels you want to subscrie to.   </li>
+<li><code>callBack</code> <strong>function</strong>: Called when the server has answers the 'SUB' Action, sent by this method.
+The callback argument will be the json packet sent back by the server.
+In the case of a subscribe, it will contain the list of current subscriptions.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-text">Note about the subscription list your will receive:
+- If channels you requested are not in the list, it means they were rejected by the server.
+  (The chan not allowed to this user).
+- If you see a channel you did not request, this can either mean that you had
+  already subscribed to it before,
+  or that you were automatically subscribed by the server upon connection (mandatory channels)
+</code></pre>
+<ul>
+<li>
+<p><code>getSubscriptions</code> : Asks the server for currently subscribed channels.</p>
+<ul>
+<li><code>callBack</code> <strong>function</strong>: Called when the server has answers the 'SUB' Action, sent by this method.
+The callback argument will be the json packet sent back by the server containing the list of current subscriptions.</li>
+</ul>
+</li>
+<li>
+<p><code>send</code> : Publishes a message on a channel.  It uses these arguments:  </p>
+<ul>
+<li><code>chan</code>: <strong>String</strong> The chan on which to publish.</li>
+<li><code>message</code>: <strong>Object</strong> The Object you want to send as message.</li>
+</ul>
+<p><strong>Caution</strong> : The object will be JSONified and is not binarry-safe.<br />
+At this time, MessageBus has not provisions for binary data transmition.<br />
+If you need to send binary data anyway, consider using Base64 encoding : Inefficient but will work.</p>
+</li>
+<li>
+<p><code>receiveFromWorker</code>: Internal function that shall not be used by the app.</p>
+</li>
+<li>
+<p><code>receiveFromServer</code>: Internal function that shall not be used by the app.</p>
+</li>
+</ul>
+<h2 id="events">Events</h2>
+<p>Once enabled, the MessageBus will start to dispatch events <strong><em>on the document</em></strong> :</p>
+<ul>
+<li><code>MessageBus.Connected</code>
+Dispatched when the bus connection to the back-end is established.
+The event object has nothing in <strong><em>'detail'</em></strong></li>
+</ul>
+<p><strong>Caution</strong> : If you want to use this event, be ready to manage connection-lost =&gt; auto-reconnection(s) scenari !</p>
+<p>On the other hand, if you just want to trigger some action when the connection is available,<br />
+you can use the <code>whenConnected</code> callback registration method instead.</p>
+<ul>
+<li>
+<p><code>MessageBus.Closed</code> 
+Dispatched when the bus connection was lost.
+The event object has nothing in <strong><em>'detail'</em></strong></p>
+</li>
+<li>
+<p><code>MessageBus.Message</code>
+Dispatched when the bus has received a message from one of the subscribed channels.
+You'll find the message payload in <strong><em>event.detail</em></strong>
+It will look something like:</p>
+</li>
+</ul>
+<pre><code class="language-json">    {   
+        &quot;msg&quot;:&quot;Hello world !&quot;,
+        &quot;chan&quot;:&quot;nike_chan&quot;
+    }
+</code></pre>
+<p><strong>About msg</strong> : In this example, the message is a simple <strong>String</strong>. If some json <strong>Object</strong> was sent, it comes already parsed for you. (thus as a javascript Object).</p>
+<ul>
+<li><code>MessageBus.[ACTION]</code>
+    Every action requested on the message bus via the propoer method (like 'SUB' for subscribe, 'UNSUB' for unsubscribe, etc), will trigger an event upon completion.
+    the event name follows the name convention <code>MessageBus.[ACTION]</code> where <strong>[action]</strong> is the requested action.<br />
+    For example, If you cal the method  <code>getSubscriptions</code>, it will launch an action <strong>'SUBLST'</strong> towards the server.<br />
+    Upon completeion, an event <code>MessageBus.SUBLST</code> will be triggered.<br />
+    In this example, the <strong>event.detail</strong> will look like :</li>
+</ul>
+<pre><code class="language-json">    [&quot;authorizer_chan&quot;,&quot;ProposalUpdate_chan&quot;,&quot;userchan_n642642&quot;]
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="assets_mgr.html" class="btn btn-neutral float-left" title="5. Use Assets Manager"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="assets_mgr.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme_extra.js" defer></script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
