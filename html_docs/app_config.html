@@ -54,6 +54,10 @@
     <li class="toctree-l2"><a class="reference internal" href="#general-configuration">General configuration</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#logger-config-key-logger">Logger config (key: "logger")</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#the-server-side-of-logger">The Server-side of Logger:</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#assets-manager-config">Assets manager config</a>
     </li>
@@ -140,6 +144,10 @@
         [&quot;...all the way up to Sparc-core...&quot;]
     ]
 </code></pre>
+<h4 id="the-server-side-of-logger">The Server-side of Logger:</h4>
+<p>On the serverr-side (to receive this Json), you can do any sorts of things.
+As a ready-to-use example, we've included in Sparc the PHP script <strong><em>'log2mail.php'</em></strong>.
+It will produce a mail that looks <a href="/docs/img/logger_mail.png">like this example</a></p>
 <h3 id="assets-manager-config">Assets manager config</h3>
 <ul>
 <li><code>basePath</code> : <strong>String</strong> The path where all assets are stored</li>

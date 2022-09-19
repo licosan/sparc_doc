@@ -35,7 +35,12 @@ Example Error posted:
         ["...all the way up to Sparc-core..."]
     ]
 ```  
-  
+
+#### The Server-side of Logger:
+On the serverr-side (to receive this Json), you can do any sorts of things.
+As a ready-to-use example, we've included in Sparc the PHP script ***'log2mail.php'***.
+It will produce a mail that looks [like this example](/docs/img/logger_mail.png)
+
   
 ### Assets manager config
 * `basePath` : **String** The path where all assets are stored
