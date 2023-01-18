@@ -22,24 +22,24 @@ This can be done with technologies which are now part of all major browsers, and
 The message bus plugin of Sparc, together with it's server Node.js counterpart and a Redis-broker do exactly that : 
 It basically allows your browser app. to connect to Redis Pub-Sub channels, server-side.
 
-It then becomes possible for your browser app. to send realtime messages to another user, or group of other users, or to any server-side back-end application or micro-service. But more interestingly, any server-side back-end application or micro-service can send realtime data or events to any browser app., user (maybe using your app in several browsers or tabs), or groups of users.
+It then becomes possible for your browser app. to send realtime messages to another user, or group of other users, or to any server-side back-end application or micro-service. But more interestingly, any server-side back-end application or micro-service can send realtime data or events to any browser app., user (maybe a user is using your app in several browsers or tabs), or groups of users.
 
-The messageBus plugin for Sparc takes care of all communication gory details (Ronnections, keep-alive, auto-reconnection, subscriptions management,...).
+The messageBus plugin for Sparc takes care of all communication gory details (Re-connections, keep-alive, auto-reconnection, subscriptions management,...).
 It offers a simplified yet powerfull API to tour app.
 
 ## Configuration
 
-* `enabled` :  **Boolean** When false, the messageBus is ...disabled ;-)
-* `pathToWorker"` : **String** This lib also uses a webworker which cannot be launched through the normal dependency system. This is the path to the worker script.  
+* `enabled` :  **Boolean** : When false, the messageBus is ...disabled ;-)
+* `pathToWorker"` : **String** : This lib also uses a webworker which cannot be launched through the normal dependency system. This is the path to the worker script.  
 Standard value is ***"/core/libs/MessageBusWorker.js"***.
 * `protocol"` : The protocol part of the URL to the websocket server.
 Standard value is ***"wss:"***.
 * `host"` : The host part of the URL to the websocket server. If absent or empty, the host will be extracted from the current browser's URL (same URL is a requirement often imposed by the browser, firewalls, proxies... anyway)
 * `port"` : The port part of the URL to the websocket server
 * `path"` : The (Where the HTTP-Upgrade will take place)
-* `connectTimeout` : ***Float*** If the server remains silent at a connection attempt, connection will timeout after this many seconds.  
+* `connectTimeout` : ***Float*** : If the server remains silent at a connection attempt, connection will timeout after this many seconds.  
 **Caution** : If ***autoReconnect*** is > 0, the  Auto-reconnect will occur after ***connectTimeout + autoReconnect*** seconds, unless the door is immediately slammed in your face right away (then ***autoReconnect*** seconds). If your WSS server is hidden behind an Nginx (which you should really do in prod.), you should also pay attention to the Nginx parameters ***proxy_connect_timeout, proxy_send_timeout and proxy_read_timeout*** 
-* `autoReconnect` : ***Float*** If zero (or false): no auto-reconnect upon connection loss. Otherwise, the time, in seconds (decimals ok), before he FIRST reconnecting attempt. (ex: 5 seconds)
+* `autoReconnect` : ***Float*** : If zero (or false): no auto-reconnect upon connection loss. Otherwise, the time, in seconds (decimals ok), before he FIRST reconnecting attempt. (ex: 5 seconds)
 * `autoReconnectTimeFactor` : ***Float*** : on every successive reconnection failure, the auto-reconnect time is multiplied by this factor, to avoid reconnect-spamming when the WSS server is down. 
 * `autoReconnectTimeMax` : ***Float*** : The ceiling value for the auto-reconnect time. 
 For example with ***autoReconnect:5, autoReconnectTimeFactor:2 , autoReconnectTimeMax:60***, attempts would occur at ***(connection loss) + 5sec, + 10sec, +20sec, +40sec then every minute***)

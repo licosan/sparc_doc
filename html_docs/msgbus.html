@@ -117,22 +117,22 @@ It is great but comes with some limitaions:</p>
 <h2 id="the-messagebus-plugin-of-sparc">The messageBus plugin of Sparc :</h2>
 <p>The message bus plugin of Sparc, together with it's server Node.js counterpart and a Redis-broker do exactly that : 
 It basically allows your browser app. to connect to Redis Pub-Sub channels, server-side.</p>
-<p>It then becomes possible for your browser app. to send realtime messages to another user, or group of other users, or to any server-side back-end application or micro-service. But more interestingly, any server-side back-end application or micro-service can send realtime data or events to any browser app., user (maybe using your app in several browsers or tabs), or groups of users.</p>
-<p>The messageBus plugin for Sparc takes care of all communication gory details (Ronnections, keep-alive, auto-reconnection, subscriptions management,...).
+<p>It then becomes possible for your browser app. to send realtime messages to another user, or group of other users, or to any server-side back-end application or micro-service. But more interestingly, any server-side back-end application or micro-service can send realtime data or events to any browser app., user (maybe a user is using your app in several browsers or tabs), or groups of users.</p>
+<p>The messageBus plugin for Sparc takes care of all communication gory details (Re-connections, keep-alive, auto-reconnection, subscriptions management,...).
 It offers a simplified yet powerfull API to tour app.</p>
 <h2 id="configuration">Configuration</h2>
 <ul>
-<li><code>enabled</code> :  <strong>Boolean</strong> When false, the messageBus is ...disabled ;-)</li>
-<li><code>pathToWorker"</code> : <strong>String</strong> This lib also uses a webworker which cannot be launched through the normal dependency system. This is the path to the worker script.<br />
+<li><code>enabled</code> :  <strong>Boolean</strong> : When false, the messageBus is ...disabled ;-)</li>
+<li><code>pathToWorker"</code> : <strong>String</strong> : This lib also uses a webworker which cannot be launched through the normal dependency system. This is the path to the worker script.<br />
 Standard value is <strong><em>"/core/libs/MessageBusWorker.js"</em></strong>.</li>
 <li><code>protocol"</code> : The protocol part of the URL to the websocket server.
 Standard value is <strong><em>"wss:"</em></strong>.</li>
 <li><code>host"</code> : The host part of the URL to the websocket server. If absent or empty, the host will be extracted from the current browser's URL (same URL is a requirement often imposed by the browser, firewalls, proxies... anyway)</li>
 <li><code>port"</code> : The port part of the URL to the websocket server</li>
 <li><code>path"</code> : The (Where the HTTP-Upgrade will take place)</li>
-<li><code>connectTimeout</code> : <strong><em>Float</em></strong> If the server remains silent at a connection attempt, connection will timeout after this many seconds.<br />
+<li><code>connectTimeout</code> : <strong><em>Float</em></strong> : If the server remains silent at a connection attempt, connection will timeout after this many seconds.<br />
 <strong>Caution</strong> : If <strong><em>autoReconnect</em></strong> is &gt; 0, the  Auto-reconnect will occur after <strong><em>connectTimeout + autoReconnect</em></strong> seconds, unless the door is immediately slammed in your face right away (then <strong><em>autoReconnect</em></strong> seconds). If your WSS server is hidden behind an Nginx (which you should really do in prod.), you should also pay attention to the Nginx parameters <strong><em>proxy_connect_timeout, proxy_send_timeout and proxy_read_timeout</em></strong> </li>
-<li><code>autoReconnect</code> : <strong><em>Float</em></strong> If zero (or false): no auto-reconnect upon connection loss. Otherwise, the time, in seconds (decimals ok), before he FIRST reconnecting attempt. (ex: 5 seconds)</li>
+<li><code>autoReconnect</code> : <strong><em>Float</em></strong> : If zero (or false): no auto-reconnect upon connection loss. Otherwise, the time, in seconds (decimals ok), before he FIRST reconnecting attempt. (ex: 5 seconds)</li>
 <li><code>autoReconnectTimeFactor</code> : <strong><em>Float</em></strong> : on every successive reconnection failure, the auto-reconnect time is multiplied by this factor, to avoid reconnect-spamming when the WSS server is down. </li>
 <li><code>autoReconnectTimeMax</code> : <strong><em>Float</em></strong> : The ceiling value for the auto-reconnect time. 
 For example with <strong><em>autoReconnect:5, autoReconnectTimeFactor:2 , autoReconnectTimeMax:60</em></strong>, attempts would occur at <strong><em>(connection loss) + 5sec, + 10sec, +20sec, +40sec then every minute</em></strong>)</li>

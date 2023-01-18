@@ -8,12 +8,20 @@ site_dir: html_docs
 nav:
     - Sparc overview: 
       - What is it & why?: index.md
-    - Learn Sparc in five steps:
-      - 1. Understand the file structure: file_structure.md
-      - 2. Configure your app: app_config.md
-      - 3. Understand the routing: routing.md
-      - 4. Write your MVC components: mvc.md
-      - 5. Use Assets Manager: assets_mgr.md
+    - Understanding Sparc :
+      - 1. The file structure: file_structure.md
+      - 2. Configuring your app: app_config.md
+      - 3. The routing: routing.md
+      - 4. MVC base classes: baseClasses.md
+      - 5. Your MVC components: mvc.md
+      - 6. The Assets Manager: assets_mgr.md
     - Available plugins:
-      - MessageBus lib: msgbus.md
       - Picoreact: picoreact.md
+      - MessageBus lib: msgbus.md
+      - Logger: logger.md
+      - Minimizer: minimizer.md
+    - A typical application:
+      - Setting up a master controller: master_ctrl.md
+      - Setting up a master template: master_template.md
+      - Setting up your custom User class: user_class.md
+      - Implemention your custom libraries: libs.md
